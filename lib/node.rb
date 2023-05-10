@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This class is represent one Node of BST
+# This class represents one Node of BST
 class Node
   include Comparable
   attr_accessor :value, :left_child, :right_child
