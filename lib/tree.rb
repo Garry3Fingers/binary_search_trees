@@ -21,6 +21,20 @@ class Tree
     root_node
   end
 
+  def insert(value, root = root_node)
+    if root.nil?
+      root = Node.new(value)
+      root
+    end
+
+    if value < root.value
+      root.left_child = insert(value, root.left_child)
+    elsif value > root.value
+      root.right_child = insert(value, root.right_child)
+    end
+    root
+  end
+
   # This method from https://www.theodinproject.com/lessons/ruby-binary-search-trees
   def pretty_print(node = root_node, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
@@ -31,5 +45,8 @@ end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.build_tree
-p tree
+tree.pretty_print
+tree.insert(100)
+tree.insert(200)
+tree.insert(6)
 tree.pretty_print
