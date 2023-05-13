@@ -35,6 +35,47 @@ class Tree
     root
   end
 
+  def delete(value, root = root_node)
+    return root if root.nil?
+
+    if root.value > value
+      root.left_child = delete(value, root.left_child)
+      return root
+    elsif root.value < value
+      root.right_child = delete(value, root.right_child)
+      return root
+    end
+
+    return nil if root.left_child.nil? && root.right_child.nil?
+
+    if root.left_child.nil?
+      temp = root.right_child
+      root = nil
+      return temp
+    elsif root.right_child.nil?
+      temp = root.left_child
+      root = nil
+      return temp
+    end
+
+    successor_parent = root
+    successor = root.right_child
+
+    until successor.left_child.nil?
+      successor_parent = successor
+      successor = successor.left_child
+    end
+
+    if successor_parent != root
+      successor_parent.left_child = successor.right_child
+    else
+      successor_parent.right_child = successor.right_child
+    end
+
+    root.value = successor.value
+    root
+  end
+
   # This method from https://www.theodinproject.com/lessons/ruby-binary-search-trees
   def pretty_print(node = root_node, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
@@ -49,4 +90,6 @@ tree.pretty_print
 tree.insert(100)
 tree.insert(200)
 tree.insert(6)
+tree.pretty_print
+tree.delete(8)
 tree.pretty_print
