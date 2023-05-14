@@ -30,7 +30,7 @@ class Tree
   end
 
   def delete(value, root = root_node)
-    return root if root.nil?
+    return nil if root.nil? || root.left_child.nil? && root.right_child.nil?
 
     if root.value > value
       root.left_child = delete(value, root.left_child)
@@ -40,7 +40,7 @@ class Tree
       return root
     end
 
-    return if delete_help_with_one_child_or_leaf(root).nil?
+    delete_help_with_one_child(root)
 
     delete_help_with_2_children(root)
   end
@@ -61,10 +61,8 @@ class Tree
 
   private
 
-  def delete_help_with_one_child_or_leaf(root)
-    if root.left_child.nil? && root.right_child.nil?
-      nil
-    elsif root.left_child.nil?
+  def delete_help_with_one_child(root)
+    if root.left_child.nil?
       root.right_child
     elsif root.right_child.nil?
       root.left_child
@@ -90,8 +88,9 @@ end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.build_tree
+tree.pretty_print
 tree.insert(100)
 tree.insert(200)
 tree.insert(6)
+tree.delete(99)
 tree.pretty_print
-p tree.find(6)
