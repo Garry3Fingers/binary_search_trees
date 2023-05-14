@@ -45,6 +45,13 @@ class Tree
     delete_help_with_2_children(root)
   end
 
+  def find(value, root = root_node)
+    return 'This value doesn\'t exist in the tree' if root.nil?
+    return root if root.value == value
+    return find(value, root.left_child) if value < root.value
+    return find(value, root.right_child) if value > root.value
+  end
+
   # This method from https://www.theodinproject.com/lessons/ruby-binary-search-trees
   def pretty_print(node = root_node, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
@@ -83,10 +90,8 @@ end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.build_tree
-tree.pretty_print
 tree.insert(100)
 tree.insert(200)
 tree.insert(6)
 tree.pretty_print
-tree.delete(200)
-tree.pretty_print
+p tree.find(6)
