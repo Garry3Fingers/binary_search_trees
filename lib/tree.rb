@@ -22,10 +22,7 @@ class Tree
   end
 
   def insert(value, root = root_node)
-    if root.nil?
-      root = Node.new(value)
-      root
-    end
+    return root = Node.new(value) if root.nil?
 
     if value < root.value
       root.left_child = insert(value, root.left_child)
