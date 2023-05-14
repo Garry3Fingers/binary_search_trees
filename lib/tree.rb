@@ -40,18 +40,31 @@ class Tree
       return root
     end
 
-    return nil if root.left_child.nil? && root.right_child.nil?
+    return if delete_help_with_one_child_or_leaf(root).nil?
 
-    if root.left_child.nil?
-      temp = root.right_child
-      root = nil
-      return temp
+    delete_help_with_2_children(root)
+  end
+
+  # This method from https://www.theodinproject.com/lessons/ruby-binary-search-trees
+  def pretty_print(node = root_node, prefix = '', is_left = true)
+    pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"
+    pretty_print(node.left_child, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_child
+  end
+
+  private
+
+  def delete_help_with_one_child_or_leaf(root)
+    if root.left_child.nil? && root.right_child.nil?
+      nil
+    elsif root.left_child.nil?
+      root.right_child
     elsif root.right_child.nil?
-      temp = root.left_child
-      root = nil
-      return temp
+      root.left_child
     end
+  end
 
+  def delete_help_with_2_children(root)
     successor_parent = root
     successor = root.right_child
 
@@ -60,21 +73,11 @@ class Tree
       successor = successor.left_child
     end
 
-    if successor_parent != root
-      successor_parent.left_child = successor.right_child
-    else
-      successor_parent.right_child = successor.right_child
-    end
+    successor_parent.left_child = successor.right_child if successor_parent != root
+    successor_parent.right_child = successor.right_child if successor_parent == root
 
     root.value = successor.value
     root
-  end
-
-  # This method from https://www.theodinproject.com/lessons/ruby-binary-search-trees
-  def pretty_print(node = root_node, prefix = '', is_left = true)
-    pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
-    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"
-    pretty_print(node.left_child, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_child
   end
 end
 
@@ -85,5 +88,5 @@ tree.insert(100)
 tree.insert(200)
 tree.insert(6)
 tree.pretty_print
-tree.delete(8)
+tree.delete(200)
 tree.pretty_print
