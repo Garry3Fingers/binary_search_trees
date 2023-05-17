@@ -95,6 +95,19 @@ class Tree
     arr unless arr.empty?
   end
 
+  def postorder(root = root_node, arr = [], &block)
+    postorder(root.left_child, arr, &block) unless root.left_child.nil?
+    postorder(root.right_child, arr, &block) unless root.right_child.nil?
+
+    if block_given?
+      block.call(root)
+    else
+      arr.push(root.value)
+    end
+
+    arr unless arr.empty?
+  end
+
   # This method from https://www.theodinproject.com/lessons/ruby-binary-search-trees
   def pretty_print(node = root_node, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
@@ -132,7 +145,7 @@ end
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.build_tree
 tree.pretty_print
-p tree.inorder
+tree.postorder { |node| puts node.value }
 # tree.level_order { |node| puts node.value }
 # # tree.insert(100)
 # tree.insert(200)
