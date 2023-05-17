@@ -70,15 +70,15 @@ class Tree
     array unless array.empty?
   end
 
-  def preoder(root = root_node, arr = [], &block)
+  def preorder(root = root_node, arr = [], &block)
     if block_given?
       block.call(root)
     else
       arr.push(root.value)
     end
 
-    preoder(root.left_child, arr, &block) unless root.left_child.nil?
-    preoder(root.right_child, arr, &block) unless root.right_child.nil?
+    preorder(root.left_child, arr, &block) unless root.left_child.nil?
+    preorder(root.right_child, arr, &block) unless root.right_child.nil?
     arr unless arr.empty?
   end
 
@@ -119,7 +119,7 @@ end
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.build_tree
 tree.pretty_print
-p tree.preoder
+tree.preorder { |node| puts node.value }
 # tree.level_order { |node| puts node.value }
 # # tree.insert(100)
 # tree.insert(200)
