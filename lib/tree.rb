@@ -52,21 +52,15 @@ class Tree
     return find(value, root.right_child) if value > root.value
   end
 
-  def level_order(root = root_node)
-    return if root.nil?
-
-    array = []
+  def level_order(root = root_node, array = [])
     queue = [root]
     until queue.empty?
       current = queue.shift
-      if block_given?
-        yield current
-      else
-        array.push(current.value)
-      end
+      block_given? ? yield(current) : array.push(current.value)
       queue.push(current.left_child) unless current.left_child.nil?
       queue.push(current.right_child) unless current.right_child.nil?
     end
+
     array unless array.empty?
   end
 
@@ -145,8 +139,8 @@ end
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.build_tree
 tree.pretty_print
-tree.postorder { |node| puts node.value }
-# tree.level_order { |node| puts node.value }
+# tree.postorder { |node| puts node.value }
+tree.level_order { |node| puts node.value }
 # # tree.insert(100)
 # tree.insert(200)
 # tree.insert(6)
