@@ -123,6 +123,19 @@ class Tree
     depth
   end
 
+  def balanced?
+    root = root_node
+    left_sub_tree_height = height(find(root.left_child.value))
+    right_sub_tree_height = height(find(root.right_child.value))
+    difference = left_sub_tree_height - right_sub_tree_height
+
+    case difference
+    in 0 | 1 | -1
+      true
+    else false
+    end
+  end
+
   # This method from https://www.theodinproject.com/lessons/ruby-binary-search-trees
   def pretty_print(node = root_node, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
@@ -164,8 +177,9 @@ tree.build_tree
 # tree.level_order { |node| puts node.value }
 tree.insert(100)
 tree.insert(200)
+tree.insert(300)
 tree.pretty_print
-p tree.depth(tree.find(9))
+puts tree.balanced?
 # tree.insert(6)
 # tree.delete(99)
 # tree.pretty_print
