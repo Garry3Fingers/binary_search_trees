@@ -12,7 +12,7 @@ class Tree
     @root_node = nil
   end
 
-  def build_tree(arr = array, first_index = 0, last_index = array.length - 1)
+  def build_tree(arr = array, first_index = 0, last_index = arr.length - 1)
     return nil if first_index > last_index
 
     middle = (first_index + last_index) / 2
@@ -136,6 +136,11 @@ class Tree
     end
   end
 
+  def rebalance
+    arr = inorder
+    build_tree(arr)
+  end
+
   # This method from https://www.theodinproject.com/lessons/ruby-binary-search-trees
   def pretty_print(node = root_node, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
@@ -178,6 +183,10 @@ tree.build_tree
 tree.insert(100)
 tree.insert(200)
 tree.insert(300)
+tree.pretty_print
+# puts tree.balanced?
+
+tree.rebalance
 tree.pretty_print
 puts tree.balanced?
 # tree.insert(6)
