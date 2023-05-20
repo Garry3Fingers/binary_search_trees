@@ -108,6 +108,21 @@ class Tree
     [height(node.left_child), height(node.right_child)].max + 1
   end
 
+  def depth(node, root = root_node)
+    return -1 if root.nil?
+
+    depth = -1
+    return depth + 1 if root.value == node.value
+
+    depth = depth(node, root.left_child)
+    return depth + 1 if depth >= 0
+
+    depth = depth(node, root.right_child)
+    return depth + 1 if depth >= 0
+
+    depth
+  end
+
   # This method from https://www.theodinproject.com/lessons/ruby-binary-search-trees
   def pretty_print(node = root_node, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
@@ -150,7 +165,7 @@ tree.build_tree
 tree.insert(100)
 tree.insert(200)
 tree.pretty_print
-p tree.height(tree.find(8))
+p tree.depth(tree.find(9))
 # tree.insert(6)
 # tree.delete(99)
 # tree.pretty_print
