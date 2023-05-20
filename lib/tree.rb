@@ -102,6 +102,12 @@ class Tree
     arr unless arr.empty?
   end
 
+  def height(node)
+    return -1 if node.nil?
+
+    [height(node.left_child), height(node.right_child)].max + 1
+  end
+
   # This method from https://www.theodinproject.com/lessons/ruby-binary-search-trees
   def pretty_print(node = root_node, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
@@ -138,11 +144,13 @@ end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.build_tree
-tree.pretty_print
+# tree.pretty_print
 # tree.postorder { |node| puts node.value }
-tree.level_order { |node| puts node.value }
-# # tree.insert(100)
-# tree.insert(200)
+# tree.level_order { |node| puts node.value }
+tree.insert(100)
+tree.insert(200)
+tree.pretty_print
+p tree.height(tree.find(8))
 # tree.insert(6)
 # tree.delete(99)
 # tree.pretty_print
