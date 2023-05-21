@@ -16,13 +16,13 @@ class Tree
     return nil if first_index > last_index
 
     middle = (first_index + last_index) / 2
-    self.root_node = Node.new(arr[middle], build_tree(arr, first_index, middle - 1),\
-                              build_tree(arr, middle + 1, last_index))
+    self.root_node = create_node(arr[middle], build_tree(arr, first_index, middle - 1),\
+                                 build_tree(arr, middle + 1, last_index))
     root_node
   end
 
   def insert(value, root = root_node)
-    return root = Node.new(value) if root.nil?
+    return root = create_node(value) if root.nil?
 
     root.left_child = insert(value, root.left_child) if value < root.value
     root.right_child = insert(value, root.right_child) if value > root.value
@@ -135,6 +135,10 @@ class Tree
 
   private
 
+  def create_node(value, *args)
+    Node.new(value, *args)
+  end
+
   def delete_help_with_one_child(root)
     root.right_child if root.left_child.nil?
     root.left_child if  root.right_child.nil?
@@ -156,21 +160,3 @@ class Tree
     root
   end
 end
-
-# tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-# tree.build_tree
-# # tree.pretty_print
-# # p tree.inorder
-# # tree.level_order { |node| puts node.value }
-# tree.insert(100)
-# tree.insert(200)
-# tree.insert(300)
-# # tree.pretty_print
-# # puts tree.balanced?
-
-# # tree.rebalance
-# tree.pretty_print
-# # puts tree.balanced?
-# # # tree.insert(6)
-# tree.delete(5)
-# tree.pretty_print
