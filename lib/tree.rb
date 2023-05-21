@@ -65,11 +65,7 @@ class Tree
   end
 
   def preorder(root = root_node, arr = [], &block)
-    if block_given?
-      block.call(root)
-    else
-      arr.push(root.value)
-    end
+    block_given? ? block.call(root) : arr.push(root.value)
 
     preorder(root.left_child, arr, &block) unless root.left_child.nil?
     preorder(root.right_child, arr, &block) unless root.right_child.nil?
@@ -79,11 +75,7 @@ class Tree
   def inorder(root = root_node, arr = [], &block)
     inorder(root.left_child, arr, &block) unless root.left_child.nil?
 
-    if block_given?
-      block.call(root)
-    else
-      arr.push(root.value)
-    end
+    block_given? ? block.call(root) : arr.push(root.value)
 
     inorder(root.right_child, arr, &block) unless root.right_child.nil?
     arr unless arr.empty?
@@ -93,11 +85,7 @@ class Tree
     postorder(root.left_child, arr, &block) unless root.left_child.nil?
     postorder(root.right_child, arr, &block) unless root.right_child.nil?
 
-    if block_given?
-      block.call(root)
-    else
-      arr.push(root.value)
-    end
+    block_given? ? block.call(root) : arr.push(root.value)
 
     arr unless arr.empty?
   end
@@ -175,16 +163,16 @@ class Tree
   end
 end
 
-# tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-# tree.build_tree
-# # tree.pretty_print
-# # tree.postorder { |node| puts node.value }
-# # tree.level_order { |node| puts node.value }
+tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+tree.build_tree
+# tree.pretty_print
+p tree.inorder
+# tree.level_order { |node| puts node.value }
 # tree.insert(100)
 # tree.insert(200)
 # tree.insert(300)
 # tree.pretty_print
-# # puts tree.balanced?
+# puts tree.balanced?
 
 # tree.rebalance
 # tree.pretty_print
