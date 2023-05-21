@@ -123,8 +123,7 @@ class Tree
   end
 
   def rebalance
-    arr = inorder
-    build_tree(arr)
+    build_tree(inorder)
   end
 
   # This method from https://www.theodinproject.com/lessons/ruby-binary-search-trees
@@ -158,20 +157,20 @@ class Tree
   end
 end
 
-tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-tree.build_tree
-# tree.pretty_print
-# p tree.inorder
-# tree.level_order { |node| puts node.value }
-tree.insert(100)
-tree.insert(200)
-tree.insert(300)
-# tree.pretty_print
-# puts tree.balanced?
+# tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+# tree.build_tree
+# # tree.pretty_print
+# # p tree.inorder
+# # tree.level_order { |node| puts node.value }
+# tree.insert(100)
+# tree.insert(200)
+# tree.insert(300)
+# # tree.pretty_print
+# # puts tree.balanced?
 
-# tree.rebalance
-tree.pretty_print
-# puts tree.balanced?
-# # tree.insert(6)
-tree.delete(5)
-tree.pretty_print
+# # tree.rebalance
+# tree.pretty_print
+# # puts tree.balanced?
+# # # tree.insert(6)
+# tree.delete(5)
+# tree.pretty_print
