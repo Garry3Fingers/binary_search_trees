@@ -113,9 +113,7 @@ class Tree
 
   def balanced?
     root = root_node
-    left_sub_tree_height = height(find(root.left_child.value))
-    right_sub_tree_height = height(find(root.right_child.value))
-    difference = left_sub_tree_height - right_sub_tree_height
+    difference = height(find(root.left_child.value)) - height(find(root.right_child.value))
 
     case difference
     in 0 | 1 | -1
@@ -163,10 +161,10 @@ class Tree
   end
 end
 
-tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-tree.build_tree
-# tree.pretty_print
-p tree.inorder
+# tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+# tree.build_tree
+# # tree.pretty_print
+# p tree.inorder
 # tree.level_order { |node| puts node.value }
 # tree.insert(100)
 # tree.insert(200)
