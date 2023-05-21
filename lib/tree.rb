@@ -137,11 +137,8 @@ class Tree
   private
 
   def delete_help_with_one_child(root)
-    if root.left_child.nil?
-      root.right_child
-    elsif root.right_child.nil?
-      root.left_child
-    end
+    root.right_child if root.left_child.nil?
+    root.left_child if  root.right_child.nil?
   end
 
   def delete_help_with_2_children(root)
@@ -161,20 +158,20 @@ class Tree
   end
 end
 
-# tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-# tree.build_tree
-# # tree.pretty_print
+tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+tree.build_tree
+# tree.pretty_print
 # p tree.inorder
 # tree.level_order { |node| puts node.value }
-# tree.insert(100)
-# tree.insert(200)
-# tree.insert(300)
+tree.insert(100)
+tree.insert(200)
+tree.insert(300)
 # tree.pretty_print
 # puts tree.balanced?
 
 # tree.rebalance
-# tree.pretty_print
+tree.pretty_print
 # puts tree.balanced?
 # # tree.insert(6)
-# # tree.delete(99)
-# # tree.pretty_print
+tree.delete(5)
+tree.pretty_print
